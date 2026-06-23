@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1B5E20;
+  --primary-light: #2E7D32;
+  --secondary: #F59E0B;
+  --accent: #0EA5E9;
+  --dark: #1E293B;
+  --light: #F8FAFC;
+  --success: #10B981;
+  --warning: #F97316;
+  --error: #EF4444;
+  --stem-bio: #E91E63;
+  --stem-chem: #7C4DFF;
+  --stem-phys: #00BCD4;
+  --gradient-hero: linear-gradient(135deg, #1B5E20 0%, #0EA5E9 100%);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #94A3B8; border-radius: 4px; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes dnaBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.animate-fade { animation: fadeIn 0.6s ease-out forwards; }
+.animate-fade-up { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-scale { animation: scaleIn 0.5s ease-out forwards; }
+
+.card {
+  @apply bg-white rounded-2xl overflow-hidden border border-gray-200 transition-all duration-300;
+  box-shadow: var(--shadow-sm);
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+.btn {
+  @apply inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 cursor-pointer border-none;
+}
+.btn-primary { background: var(--secondary); color: var(--dark); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245,158,11,0.4); }
+.btn-outline { @apply bg-transparent border-2 border-emerald-800 text-emerald-800; }
+.btn-outline:hover { background: var(--primary); color: white; }
+
+.filter-chip {
+  @apply px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-all border border-gray-200 bg-white;
+}
+.filter-chip:hover { border-color: var(--primary); }
+.filter-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+.stem-tab {
+  @apply px-6 py-3 rounded-xl text-base font-semibold cursor-pointer border-2 border-gray-200 bg-white transition-all;
+}
+.stem-tab:hover { border-color: var(--primary); }
+.stem-tab.active { color: white; border-color: transparent; }
+.stem-tab[data-tab="biology"].active { background: var(--stem-bio); }
+.stem-tab[data-tab="chemistry"].active { background: var(--stem-chem); }
+.stem-tab[data-tab="physics"].active { background: var(--stem-phys); }
+
+.section-header { @apply text-center mb-10; }
+.section-header h2 { @apply text-3xl font-extrabold text-slate-800 mb-2; }
+.section-header p { @apply text-lg text-slate-500 max-w-2xl mx-auto; }
+
+@layer base {
+  input, select, textarea {
+    @apply w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm transition-all;
+  }
+  input:focus, select:focus, textarea:focus {
+    @apply outline-none border-emerald-700;
+    box-shadow: 0 0 0 3px rgba(27,94,32,0.1);
+  }
+}
+
+@layer components {
+  .viewer-overlay { @apply fixed inset-0 z-50 bg-black hidden; }
+  .viewer-overlay.active { display: flex; flex-direction: column; }
+  .lidar-container { @apply w-full h-[500px] relative rounded-2xl overflow-hidden bg-slate-900; }
+}
