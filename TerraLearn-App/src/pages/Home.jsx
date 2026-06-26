@@ -1,167 +1,155 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Globe, BookOpen, FlaskConical, Telescope, Landmark, TreePine } from 'lucide-react'
+import { ArrowRight, Play, Star, Users, BookOpen, Globe, Zap, Shield } from 'lucide-react'
+import { experiences } from '../data/experiences'
 import ExperienceCard from '../components/ExperienceCard'
-import { experiences, categories } from '../data/experiences'
+
+const stats = [
+  { value: '50+', label: 'Experiences', icon: Globe },
+  { value: '15', label: 'SA Destinations', icon: MapPin },
+  { value: '10K+', label: 'Students', icon: Users },
+  { value: '4.9', label: 'Avg Rating', icon: Star },
+]
+
+const features = [
+  { icon: Play, title: 'Immersive 360°', desc: 'Explore destinations in full 360° before you travel' },
+  { icon: BookOpen, title: 'Curriculum Aligned', desc: 'Content mapped to South African school curriculum' },
+  { icon: Zap, title: 'Interactive STEM', desc: 'Virtual labs for biology, chemistry, and physics' },
+  { icon: Shield, title: 'Offline Ready', desc: 'Download experiences for areas with poor connectivity' },
+]
+
+const featuredExperiences = experiences.filter(e => e.rating >= 4.8).slice(0, 6)
 
 export default function Home() {
-  const featured = experiences.slice(0, 6)
-  const stemFeatured = experiences.filter(e => e.category === 'stem').slice(0, 3)
-
   return (
-    <div className="pt-16">
+    <div className="min-h-screen">
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="absolute rounded-full bg-white/10 animate-pulse"
-              style={{ width: `${4 + Math.random() * 8}px`, height: `${4 + Math.random() * 8}px`, left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 4}s`, animationDuration: `${4 + Math.random() * 4}s` }} />
-          ))}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80"
+            alt="Kruger National Park"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
         </div>
-        <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-            See the World.<br /><span className="text-amber-400">Learn the World.</span>
-          </h1>
-          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-            Immersive field trips for every student — no bus ticket required. Explore 360° panoramas, interactive STEM labs, and AI-enhanced educational experiences from anywhere.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/browse" className="btn btn-primary text-lg px-8 py-4">
-              🎓 Start Learning (Free) <ArrowRight size={20} />
-            </Link>
-            <Link to="/tourism" className="btn btn-secondary text-lg px-8 py-4">
-              ✈️ Explore as Tourist
-            </Link>
+
+        <div className="container-modern relative z-10 pt-24">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              Now available across South Africa
+            </div>
+            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
+              Explore Before<br />
+              <span className="text-emerald-400">You Travel</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-lg leading-relaxed">
+              Immersive 360° experiences of South Africa's most iconic destinations. 
+              From Kruger to Table Mountain, discover Mzansi before you book.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/browse" className="btn-primary text-base px-8 py-4">
+                Start Exploring <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link to="/tourism" className="btn-modern bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-md text-base px-8 py-4">
+                <Play className="w-5 h-5" /> Watch Demo
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Stats bar */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-white/5 backdrop-blur-lg">
-          <div className="max-w-7xl mx-auto px-4 py-6 flex justify-center gap-12 md:gap-24 flex-wrap">
-            {[{ val: '2,400+', label: 'Experiences' }, { val: '147', label: 'Countries' }, { val: '500K+', label: 'Students' }, { val: '100%', label: 'Free for Schools' }].map(s => (
-              <div key={s.label} className="text-center">
-                <div className="text-3xl font-extrabold text-amber-400">{s.val}</div>
-                <div className="text-sm text-white/60">{s.label}</div>
-              </div>
-            ))}
+        {/* Floating Stats */}
+        <div className="absolute bottom-8 left-0 right-0 z-10">
+          <div className="container-modern">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {stats.map((stat, i) => {
+                const Icon = stat.icon
+                return (
+                  <div key={i} className="glass rounded-2xl p-4 md:p-6 text-center">
+                    <Icon className="w-5 h-5 text-emerald-400 mx-auto mb-2" />
+                    <div className="text-2xl md:text-3xl font-extrabold text-white">{stat.value}</div>
+                    <div className="text-sm text-gray-300">{stat.label}</div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="section-header">
-          <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">How It Works</span>
-          <h2>Three Steps to Anywhere</h2>
-          <p>From the Serengeti to the International Space Station, from the human heart to chemical reactions — every student can explore.</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { num: 1, title: 'Browse & Discover', desc: 'Search by subject, grade level, or location. Filter by curriculum alignment, STEM labs, accessibility features, or duration.', icon: Globe },
-            { num: 2, title: 'Immerse & Experiment', desc: 'Drag through 360° panoramas, explore interactive STEM labs, mix virtual chemicals, and dissect organs layer by layer.', icon: FlaskConical },
-            { num: 3, title: 'Learn & Quiz', desc: 'Complete embedded quizzes, earn badges, and track progress. Teachers get detailed analytics and curriculum tools.', icon: BookOpen }
-          ].map(step => (
-            <div key={step.num} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-700 to-sky-500 text-white flex items-center justify-center text-2xl font-extrabold mx-auto mb-5">
-                {step.num}
-              </div>
-              <step.icon size={32} className="mx-auto mb-4 text-emerald-700" />
-              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
-            </div>
-          ))}
+      {/* Features */}
+      <section className="section bg-gray-50">
+        <div className="container-modern">
+          <div className="section-header">
+            <span className="text-emerald-600 font-semibold text-sm uppercase tracking-wider">Why TerraLearn</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">
+              Learn Through Experience
+            </h2>
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+              South Africa's first immersive educational platform combining tourism, STEM, and cultural heritage
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, i) => {
+              const Icon = feature.icon
+              return (
+                <div key={i} className="card-modern p-6 md:p-8 text-center group">
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-5 group-hover:bg-emerald-100 transition-colors">
+                    <Icon className="w-7 h-7 text-emerald-600" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{feature.desc}</p>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </section>
 
       {/* Featured Experiences */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="section-header">
-            <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">Featured Experiences</span>
-            <h2>Popular Field Trips</h2>
-            <p>Handpicked immersive experiences from around the globe and the laboratory.</p>
+      <section className="section">
+        <div className="container-modern">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <span className="text-emerald-600 font-semibold text-sm uppercase tracking-wider">Featured</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">
+                Top Rated Experiences
+              </h2>
+            </div>
+            <Link to="/browse" className="hidden md:flex items-center gap-2 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors">
+              View All <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map(exp => <ExperienceCard key={exp.id} exp={exp} />)}
+            {featuredExperiences.map(exp => (
+              <ExperienceCard key={exp.id} exp={exp} />
+            ))}
           </div>
-          <div className="text-center mt-10">
-            <Link to="/browse" className="btn btn-outline inline-flex">View All Experiences →</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* STEM Featured */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="section-header">
-          <span className="inline-block px-4 py-1.5 bg-pink-100 text-pink-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">New: STEM Labs</span>
-          <h2>Science Up Close</h2>
-          <p>Interactive biology, chemistry, and physics experiments that go where cameras can't.</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {stemFeatured.map(exp => <ExperienceCard key={exp.id} exp={exp} />)}
-        </div>
-        <div className="text-center mt-10">
-          <Link to="/stemlab" className="btn btn-outline inline-flex">Enter STEM Lab →</Link>
-        </div>
-      </section>
-
-      {/* Technology */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="section-header">
-            <span className="inline-block px-4 py-1.5 bg-sky-100 text-sky-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">Technology</span>
-            <h2>Powered by AI & LiDAR</h2>
-            <p>Cutting-edge technology makes the impossible possible.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Link to="/stitching" className="card p-6 hover:-translate-y-1 cursor-pointer">
-              <div className="text-4xl mb-4">🧩</div>
-              <h3 className="text-xl font-bold mb-2">AI Content Stitching</h3>
-              <p className="text-gray-500 text-sm mb-4">Our AI engine combines thousands of publicly available photos and videos into seamless, immersive 360° experiences.</p>
-              <span className="text-sm font-semibold text-sky-600">Explore Stitching Lab →</span>
-            </Link>
-            <Link to="/lidar" className="card p-6 hover:-translate-y-1 cursor-pointer">
-              <div className="text-4xl mb-4">📡</div>
-              <h3 className="text-xl font-bold mb-2">LiDAR 3D Mapping</h3>
-              <p className="text-gray-500 text-sm mb-4">Future technology for creating walkable, measurable 3D replicas of real places. Explore point clouds and measure distances.</p>
-              <span className="text-sm font-semibold text-sky-600">Visit LiDAR Lab →</span>
+          <div className="mt-8 text-center md:hidden">
+            <Link to="/browse" className="btn-primary">
+              View All Experiences <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Dual Mission */}
-      <section className="py-20 px-4 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="section-header">
-            <span className="inline-block px-4 py-1.5 bg-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">Dual Mission</span>
-            <h2 className="text-white">Education First. Tourism Sustains.</h2>
-            <p className="text-white/60">Every experience is free for students. Tourism subscriptions fund the platform and keep content growing.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-              <h3 className="text-xl font-bold mb-4 text-emerald-400">🎓 For Students</h3>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> 100% free access to all core experiences</li>
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> Interactive STEM labs with experiments</li>
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> Download for offline viewing</li>
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> Curriculum-aligned content and quizzes</li>
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> Multi-language narration and captions</li>
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> Works on any smartphone or computer</li>
-                <li className="flex items-start gap-2"><span className="text-emerald-400">✓</span> Basic VR support with cardboard headsets</li>
-              </ul>
-            </div>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-              <h3 className="text-xl font-bold mb-4 text-amber-400">✈️ For Tourists</h3>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li className="flex items-start gap-2"><span className="text-amber-400">✓</span> Premium 3D walkable experiences</li>
-                <li className="flex items-start gap-2"><span className="text-amber-400">✓</span> "See before you go" trip planning</li>
-                <li className="flex items-start gap-2"><span className="text-amber-400">✓</span> Live events and expert-guided tours</li>
-                <li className="flex items-start gap-2"><span className="text-amber-400">✓</span> 4K quality and spatial audio</li>
-                <li className="flex items-start gap-2"><span className="text-amber-400">✓</span> Ad-free experience</li>
-                <li className="flex items-start gap-2"><span className="text-amber-400">✓</span> Your subscription funds free education</li>
-              </ul>
-            </div>
+      {/* CTA */}
+      <section className="section bg-gray-900">
+        <div className="container-modern text-center">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+            Ready to Explore<br /><span className="text-emerald-400">South Africa?</span>
+          </h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
+            Join thousands of students and travelers discovering the beauty of Mzansi through immersive experiences.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to="/tourism" className="btn-primary text-base px-8 py-4">
+              Explore Tourism <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link to="/stem-lab" className="btn-modern bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-md text-base px-8 py-4">
+              Try STEM Lab
+            </Link>
           </div>
         </div>
       </section>
