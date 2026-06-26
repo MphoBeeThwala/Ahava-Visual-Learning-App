@@ -15,20 +15,22 @@ import Upload from './pages/Upload'
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/browse" element={<Browse />} />
-        <Route path="/experience/:id" element={<ExperienceDetail />} />
-        <Route path="/stem-lab" element={<StemLab />} />
-        <Route path="/lidar-lab" element={<LidarLab />} />
-        <Route path="/stitching-lab" element={<StitchingLab />} />
-        <Route path="/teacher" element={<TeacherDashboard />} />
-        <Route path="/profile" element={<StudentProfile />} />
-        <Route path="/tourism" element={<Tourism />} />
-        <Route path="/upload" element={<Upload />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/experience/:id" element={<ExperienceDetail />} />
+          <Route path="/stem-lab" element={<StemLab />} />
+          <Route path="/lidar-lab" element={<LidarLab />} />
+          <Route path="/stitching-lab" element={<StitchingLab />} />
+          <Route path="/teacher" element={<TeacherDashboard />} />
+          <Route path="/profile" element={<StudentProfile />} />
+          <Route path="/tourism" element={<Tourism />} />
+          <Route path="/upload" element={<Upload />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   )
