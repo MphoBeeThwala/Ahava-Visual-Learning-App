@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Play, Star, Users, BookOpen, Globe, Zap, Shield } from 'lucide-react'
+import { ArrowRight, Play, Star, Users, BookOpen, Globe, Zap, Shield, MapPin } from 'lucide-react'
 import { experiences } from '../data/experiences'
 import ExperienceCard from '../components/ExperienceCard'
 
