@@ -5,89 +5,94 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --primary: 160 84% 39%;
-    --primary-dark: 158 64% 28%;
-    --primary-light: 158 76% 46%;
-    --accent: 45 93% 47%;
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 160 84% 39%;
-    --radius: 0.75rem;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  }
-
-  * {
-    @apply border-border;
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    @apply bg-background text-foreground antialiased;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-white text-gray-900;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
-    @apply font-bold tracking-tight;
+    @apply font-bold tracking-tight text-gray-900;
+    line-height: 1.2;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
 @layer components {
-  /* Modern Card */
-  .card-modern {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300;
-    @apply hover:-translate-y-0.5;
+  .container-modern {
+    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
   }
 
-  /* Glass Effect */
+  .section {
+    @apply py-16 md:py-20;
+  }
+
+  .section-header {
+    @apply text-center max-w-3xl mx-auto mb-12;
+  }
+
+  .card-modern {
+    @apply bg-white rounded-2xl border border-gray-100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+
+  .card-modern:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+  }
+
   .glass {
-    @apply bg-white/80 backdrop-blur-xl border border-white/20;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .glass-dark {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Gradient Text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent;
-  }
-
-  /* Animated Button */
   .btn-modern {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm;
-    @apply transition-all duration-200 active:scale-95;
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    transition: all 0.2s ease;
+  }
+
+  .btn-modern:active {
+    transform: scale(0.97);
   }
 
   .btn-primary {
-    @apply btn-modern bg-emerald-600 text-white hover:bg-emerald-700;
-    @apply shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-600/30;
+    @apply btn-modern bg-emerald-600 text-white;
+  }
+
+  .btn-primary:hover {
+    @apply bg-emerald-700;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
   }
 
   .btn-secondary {
-    @apply btn-modern bg-gray-100 text-gray-900 hover:bg-gray-200;
+    @apply btn-modern bg-gray-100 text-gray-900;
   }
 
-  .btn-ghost {
-    @apply btn-modern bg-transparent text-gray-600 hover:bg-gray-100;
+  .btn-secondary:hover {
+    @apply bg-gray-200;
   }
 
-  /* Badge */
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium;
   }
 
   .badge-premium {
@@ -102,49 +107,36 @@
     @apply badge bg-sky-100 text-sky-700 border border-sky-200;
   }
 
-  /* Input Modern */
   .input-modern {
-    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white;
-    @apply text-sm placeholder:text-gray-400;
-    @apply focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500;
-    @apply transition-all duration-200;
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm;
   }
 
-  /* Section */
-  .section {
-    @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8;
+  .input-modern:focus {
+    @apply outline-none border-emerald-500;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
   }
 
-  .section-header {
-    @apply text-center max-w-3xl mx-auto mb-12 md:mb-16;
-  }
-
-  /* Container */
-  .container-modern {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  /* Tab Modern */
   .tab-modern {
-    @apply px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
-    @apply text-gray-500 hover:text-gray-900 hover:bg-gray-100;
+    @apply px-4 py-2.5 rounded-lg text-sm font-medium text-gray-500;
+    transition: all 0.2s ease;
+  }
+
+  .tab-modern:hover {
+    @apply text-gray-900 bg-gray-100;
   }
 
   .tab-modern-active {
     @apply tab-modern bg-emerald-50 text-emerald-700;
   }
 
-  /* Skeleton Loading */
-  .skeleton {
-    @apply animate-pulse bg-gray-200 rounded-lg;
-  }
-
-  /* Image Hover */
   .img-hover {
-    @apply transition-transform duration-500 ease-out group-hover:scale-105;
+    transition: transform 0.5s ease;
   }
 
-  /* Price Tag */
+  .group:hover .img-hover {
+    transform: scale(1.05);
+  }
+
   .price-tag {
     @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-bold;
   }
@@ -156,24 +148,6 @@
   .price-paid {
     @apply price-tag bg-gray-900 text-white;
   }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400;
-  }
 }
 
 @layer utilities {
@@ -181,15 +155,12 @@
     text-wrap: balance;
   }
 
-  .animation-delay-200 {
-    animation-delay: 200ms;
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  .animation-delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .animation-delay-600 {
-    animation-delay: 600ms;
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
