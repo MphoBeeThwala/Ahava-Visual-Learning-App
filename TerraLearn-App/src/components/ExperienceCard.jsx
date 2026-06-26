@@ -2,6 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Star, Download, Heart, Clock, MapPin } from 'lucide-react'
 
+// Simple ZAR formatter (no external dependency needed)
+const formatPrice = (price) => {
+  if (price === 0 || price === null || price === undefined) return 'Free'
+  return `R${price.toLocaleString('en-ZA')}`
+}
+
 export default function ExperienceCard({ exp }) {
   return (
     <Link to={`/experience/${exp.id}`} className="card group block">
@@ -15,6 +21,11 @@ export default function ExperienceCard({ exp }) {
         {exp.premium && (
           <span className="absolute top-3 left-3 px-2.5 py-1 bg-amber-400 text-gray-900 text-xs font-semibold rounded-full">
             Premium
+          </span>
+        )}
+        {exp.price === 0 && (
+          <span className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-600 text-white text-xs font-semibold rounded-full">
+            Free
           </span>
         )}
         {exp.vr && (
@@ -57,7 +68,7 @@ export default function ExperienceCard({ exp }) {
               <Heart size={14} />
             </button>
           </div>
-          <span className="text-sm font-semibold text-emerald-700">Explore →</span>
+          <span className="text-sm font-bold text-emerald-700">{formatPrice(exp.price)}</span>
         </div>
       </div>
     </Link>
